@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+    /*
+     |------------------------------
+     | category
+     |------------------------------
+     */
+    //show all
+    Route::get('/category', [CategoryController::class, 'index'])
+         ->name('index.category');
+
+
+
+         
 Route::ge('/logout', [UserController::class,'logout'])->name('users.logout');
