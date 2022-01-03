@@ -26,8 +26,12 @@ Route::get('/', function () {
     //show all
     Route::get('/category', [CategoryController::class, 'index'])
          ->name('index.category');
+          //store new
+    Route::post('/category', [CategoryController::class, 'store'])
+    ->name('store.category');
 
 
 
-         
-Route::ge('/logout', [UserController::class,'logout'])->name('users.logout');
+
+
+Route::get('/logout', [UserController::class,'logout'])->name('users.logout');
