@@ -20,4 +20,35 @@ class CategoryService
     {
         return Category::all();
     }
+    
+    /**
+     * store new data in db
+     * @param Request $request
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     */
+    public static function createNew(Request $request)
+    {
+
+        return Category::query()
+                       ->create([
+                           Category::c_parent_id => $request->category == 0 ? null : $request->category,
+                           Category::c_title     => $request->title,
+                           Category::c_slug      => SLUG($request->slug)
+                       ]);
+
+
+    }
+
+    /**
+     * get data with pagination
+     * @param null $perPage
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public static function getWithPaginate($perPage = null)
+    {
+        return Category::query()
+                       ->paginate($perPage ?? config('shop.perPage'));
+    }
+
+
 }
