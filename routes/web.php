@@ -31,6 +31,18 @@ Route::get('/', function () {
     ->name('store.category');
 
 
+     /*
+     |------------------------------
+     | Brand
+     |------------------------------
+     */
+    //show all
+    Route::get('/brand', [BrandController::class, 'index'])
+         ->name('index.brand');
+
+    //store new
+    Route::post('/brand', [BrandController::class, 'store'])
+         ->name('store.brand');
 
 
 
