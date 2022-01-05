@@ -21,4 +21,17 @@ class BrandService extends Controller
     {
         return Brand::all();
     }
+
+    public static function create(StoreBrandRequest $request)
+    {
+        $imageName = uploadService::handle($request->image, config('shop.brandImagePath'), 'brand');
+
+        Brand::query()
+             ->create([
+                 Brand::c_title => $request->title,
+                 Brand::c_slug  => SLUG($request->slug),
+                 Brand::c_image => $imageName
+             ]);
+    }
+
 }

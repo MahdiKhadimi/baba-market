@@ -16,4 +16,10 @@ class BrandController extends Controller
         return view('admin.brands.index', compact('brands', 'brands_paginate'));
     }
 
+    public function store(StoreBrandRequest $request)
+    {
+        BrandService::create($request);
+        return redirect(route('index.brand'))->with('succ', msg_succ());
+    }
+
 }

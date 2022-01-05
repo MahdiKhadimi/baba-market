@@ -9,4 +9,13 @@ return [
      |
      */
     'perPage'           => 10,
+
+
+
+    'brandImagePath'    => 'images\\brands\\',
+
+    'msg'=>[
+        'creatd'=>'successfull created'
+    ]
+
 ];
