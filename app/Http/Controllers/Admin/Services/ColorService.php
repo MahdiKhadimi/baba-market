@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Controllers\Admin\Services;
+
+use App\Http\Controllers\Controller;
+use App\Models\Color;
+use Symfony\Component\HttpFoundation\Request;
+
+class ColorService extends Controller
+{
+    /**
+     * return data with pagination
+     * @param null $perPage
+     * @return mixed
+     */
+    public static function getWithPaginate($perPage = null)
+    {
+        return Color::paginate($perPage ?? config('shop.perPage'));
+    }
+
+}

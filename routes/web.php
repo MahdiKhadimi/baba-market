@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\CategoryController;
 
 /*
@@ -44,6 +45,19 @@ Route::get('/', function () {
     Route::post('/brand', [BrandController::class, 'store'])
          ->name('store.brand');
 
+
+ /*
+     |------------------------------
+     | Color
+     |------------------------------
+     */
+    //show all
+    Route::get('/color', [ColorController::class, 'index'])
+         ->name('index.color');
+
+    //store new
+    Route::post('/color', [ColorController::class, 'store'])
+         ->name('store.color');
 
 
 Route::get('/logout', [UserController::class,'logout'])->name('users.logout');
