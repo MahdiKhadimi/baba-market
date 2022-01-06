@@ -18,4 +18,11 @@ class ColorController extends Controller
         $colors = ColorService::getWithPaginate();
         return view('admin.colors.index', compact('colors'));
     }
+    
+    public function store(StoreColorRequest $request)
+    {
+        ColorService::create($request);
+        return redirect(route('index.color'))->with('success', msg_succ());
+    }
+
 }

@@ -18,4 +18,15 @@ class ColorService extends Controller
         return Color::paginate($perPage ?? config('shop.perPage'));
     }
 
+      /**
+     * store new data in db
+     * @param Request $request
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     */
+    public static function create(Request $request)
+    {
+        return Color::query()
+                    ->create($request->toArray());
+    }
+    
 }
