@@ -59,5 +59,17 @@ Route::get('/', function () {
     Route::post('/color', [ColorController::class, 'store'])
          ->name('store.color');
 
+    /*
+     |------------------------------
+     | Size
+     |------------------------------
+     */
+    //show all
+    Route::get('/size', [SizeController::class, 'index'])
+         ->name('index.size');
+
+    //store new
+    Route::post('/size', [SizeController::class, 'store'])
+         ->name('store.size');
 
 Route::get('/logout', [UserController::class,'logout'])->name('users.logout');
