@@ -72,4 +72,24 @@ Route::get('/', function () {
     Route::post('/size', [SizeController::class, 'store'])
          ->name('store.size');
 
+           /*
+     |------------------------------
+     | City /State
+     |------------------------------
+     |
+     |
+     |
+     */
+    //show all
+    Route::get('/City', [CityController::class, 'index'])
+    ->name('index.city');
+
+//store new city
+Route::post('/city', [CityController::class, 'store'])
+    ->name('store.city');
+
+//state view
+Route::get('/city/state', [StateController::class, 'getAllCity'])
+    ->name('index.state');
+
 Route::get('/logout', [UserController::class,'logout'])->name('users.logout');
