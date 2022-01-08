@@ -15,5 +15,10 @@ class CityController extends Controller
         return view('admin.cities.index',compact('cities'));
     }
 
+    public function store(storeCityRequest $request)
+    {
+        CityService::createCity($request);
+        return redirectr(route('index.city',)->with(['success'=>ms_succ()]);
+    }
 
 }

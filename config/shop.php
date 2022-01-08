@@ -15,7 +15,7 @@ return [
     'brandImagePath'    => 'images\\brands\\',
 
     'msg'=>[
-        'creatd'=>'successfull created'
+        'create'=>'successfull created'
     ]
 
 ];

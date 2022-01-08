@@ -41,4 +41,5 @@ class SizeService extends Controller
         return redirect(route('index.size'))->with('success', msg_succ());
     }
 
+    
 }
