@@ -91,6 +91,14 @@ Route::get('/', function () {
   //state view
   Route::get('/city/state', [StateController::class, 'getAllCity'])
     ->name('index.state');
+  
+    //store new state
+  Route::post('/state', [StateController::class, 'store'])
+  ->name('store.state');
 
-    
+ //get state By City Id
+  Route::post('/city/state', [StateController::class, 'getByCityId'])
+     ->name('get.state');
+
+
    Route::get('/logout', [UserController::class,'logout'])->name('users.logout');

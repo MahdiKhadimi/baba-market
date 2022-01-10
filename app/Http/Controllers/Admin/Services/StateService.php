@@ -18,5 +18,26 @@ class StateService extends Controller
     {
         return State::create(['city_id' => $request->city_id, 'name' => $request->state]);
     }
-  
+
+      /**
+     * get states by city id
+     * @param City $city
+     * @return mixed
+     */
+    public static function getStateByCityId(City $city)
+    {
+        return $city->states;
+    }
+
+    /**
+     * get all states by its city owner id
+     * @param $cityId
+     * @return \Illuminate\Database\Eloquent\HigherOrderBuilderProxy|\Illuminate\Support\HigherOrderCollectionProxy|mixed
+     */
+    public static function getJsonStates($cityId)
+    {
+        $city = CityService::getById($cityId);
+        return $city->states;
+    }
+    
 }
