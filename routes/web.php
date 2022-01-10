@@ -72,7 +72,7 @@ Route::get('/', function () {
     Route::post('/size', [SizeController::class, 'store'])
          ->name('store.size');
 
-           /*
+     /*
      |------------------------------
      | City /State
      |------------------------------
@@ -99,6 +99,20 @@ Route::get('/', function () {
  //get state By City Id
   Route::post('/city/state', [StateController::class, 'getByCityId'])
      ->name('get.state');
+
+
+     /*
+     |------------------------------
+     | Didsount
+     |------------------------------
+     */
+    //show discount
+    Route::get('/discount', [DiscountController::class, 'index'])
+    ->name('index.discount');
+
+    //store new discount
+    Route::post('/discount', [DiscountController::class, 'store'])
+    ->name('store.discount');
 
 
    Route::get('/logout', [UserController::class,'logout'])->name('users.logout');
