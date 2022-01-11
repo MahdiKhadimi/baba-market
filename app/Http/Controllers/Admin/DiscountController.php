@@ -14,5 +14,12 @@ class DiscountController extends Controller
         return view('admin.discounts.index', compact('discounts'));
     }
 
+    public function store(storeDiscountRequest $request)
+    {
+        DiscountService::create($request);
+
+        return redirect(route('index.discount'))->with('success', msg_succ());
+
+    }
 
 }

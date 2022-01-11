@@ -13,6 +13,7 @@ return [
 
 
     'brandImagePath'    => 'images\\brands\\',
+    'discountImagePath'    => 'images\\discounts\\',// path for save discount images
 
     'msg'=>[
         'create'=>'successfull created'
