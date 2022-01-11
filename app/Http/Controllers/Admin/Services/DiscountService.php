@@ -31,4 +31,16 @@ class DiscountService extends Controller
         ]);
 
     }
+
+     /**
+     * return data with pagination
+     * @param null $perPage
+     * @return mixed
+     */
+    public static function getWithPagination($perPage = null)
+    {
+        return Discount::paginate($perPage ?? config('shop.perPage'));
+    }
+	
+	
 }
