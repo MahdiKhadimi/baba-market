@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DiscountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,6 +115,24 @@ Route::get('/', function () {
     //store new discount
     Route::post('/discount', [DiscountController::class, 'store'])
     ->name('store.discount');
+
+
+   /*
+     |------------------------------
+     | Product
+     |------------------------------
+     */
+    //all proudct
+    Route::get('/product', [ProductController::class, 'index'])
+         ->name('index.product');
+;
+    //show create form
+    Route::get('product/create', [ProductController::class, 'create'])
+         ->name('create.product');
+
+    //save product to db
+    Route::post('/product', [ProductController::class, 'store'])
+         ->name('store.product');
 
 
    Route::get('/logout', [UserController::class,'logout'])->name('users.logout');
