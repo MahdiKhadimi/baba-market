@@ -125,7 +125,6 @@ Route::get('/', function () {
     //all proudct
     Route::get('/product', [ProductController::class, 'index'])
          ->name('index.product');
-;
     //show create form
     Route::get('product/create', [ProductController::class, 'create'])
          ->name('create.product');
@@ -133,6 +132,11 @@ Route::get('/', function () {
     //save product to db
     Route::post('/product', [ProductController::class, 'store'])
          ->name('store.product');
+         
+      //get subcategory used by ajax in the create form
+    Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
+    ->name('subcategory.product');
+
 
 
    Route::get('/logout', [UserController::class,'logout'])->name('users.logout');

@@ -17,38 +17,47 @@ class ProductController extends Controller
 {
     public function index()
     {
-      
+        $products = ProductService::getWithPagination();
 
         return view('admin.products.index', compact('products'));
     }
 
     public function create()
     {
-     
-        return view('admin.products.create');
+        $categories = CategoryService::getMainCategories();
+        $brands = BrandService::getAll();
+        $sizes = SizeService::getAll();
+        $colors = ColorService::getAll();
+        return view('admin.products.create', compact('categories', 'brands', 'colors', 'sizes'));
     }
 
-   
-
-             'categories',
-                'sizes',
-                'colors',
-                'brands',
-                'subCategories'
-            ));
-    }
-
-    public function Update(UpdateProductRequest $request)
+    /**
+     * store new data in db
+     */
+    public function store(StoreProductRequest $request)
     {
-        $update_result = ProductService::Update($request);
+        $create_result = ProductService::create($request);
 
-        if ($update_result) {
-            return redirect()
-                ->back()
-                ->with('succ', config('shop.msg.update'));
+        if ($create_result) {
+
+            return redirect(route('create.product'))->with('success', config('shop.msg.create'));
         }
-        return redirect()
-            ->back()
-            ->with('fail', config('shop.msg.fail_update'));
+
+        return redirect(route('create.product'))->with('fail', config('shop.msg.fail_create'));
+
+
     }
+
+
+    /***
+     * get sub Category by id
+     */
+    public function getSubCategory(getSubCategoryRequest $request)
+    {
+
+        $subcategories = CategoryService::getSubCatByCategory($request->category_id);
+
+        return response()->json($subcategories);
+    }
+
 }

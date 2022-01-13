@@ -36,7 +36,6 @@ class CategoryService
                            Category::c_slug      => SLUG($request->slug)
                        ]);
 
-
     }
 
     /**
@@ -48,6 +47,18 @@ class CategoryService
     {
         return Category::query()
                        ->paginate($perPage ?? config('shop.perPage'));
+    }
+
+     
+    public static function getMainCategories()
+    {
+        return Category::where('parent_id', null)
+                       ->get();
+    }
+    public static function getSubCatByCategory($category_id)
+    {
+        return Category::query()
+                       ->find($category_id)->subcategories;
     }
 
 
