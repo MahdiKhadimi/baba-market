@@ -24,6 +24,8 @@ class ProductService extends Controller
           
             //get upload image Name
             $request['image'] = uploadService::handle($request->file('cover'), config('shop.productCoverPath'), 'productCover');
+
+            Product::create($request->except('main_category'));
     }
     
     
