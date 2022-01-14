@@ -21,7 +21,9 @@ class ProductService extends Controller
      */
     public static function create(Request $request)
     {
-          
+
+           $request['active'] = $request->has('active') ? true : false;  
+
             //get upload image Name
             $request['image'] = uploadService::handle($request->file('cover'), config('shop.productCoverPath'), 'productCover');
 
