@@ -8,6 +8,18 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ColorService extends Controller
 {
+
+
+    /**
+     * return colors 
+     *  @param null
+     * @return mixed
+     */
+    public function getAll()
+    {
+        return Color::get();
+    }
+
     /**
      * return data with pagination
      * @param null $perPage

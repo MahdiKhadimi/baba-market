@@ -22,12 +22,35 @@ class ProductService extends Controller
     public static function create(Request $request)
     {
 
-           $request['active'] = $request->has('active') ? true : false;  
+          
+          try {
+            DB::beginTransaction();
+
+
+            //set active
+            $request['active'] = $request->has('active') ? true : false;
 
             //get upload image Name
             $request['image'] = uploadService::handle($request->file('cover'), config('shop.productCoverPath'), 'productCover');
 
-            Product::create($request->except('main_category'));
+
+            //save to db
+            $product = Product::create($request->toArray());
+
+            //relation M:N COLOR
+            $product->colors()
+                    ->sync($request->colors);
+
+            //relation M:N SIZE
+            $product->sizes()
+                    ->sync($request->sizes);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+        }
+
     }
     
     

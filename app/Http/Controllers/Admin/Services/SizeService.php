@@ -9,6 +9,17 @@ use App\Http\Requests\StoreSizeRequest;
 
 class SizeService extends Controller
 {
+
+  /**
+   * @param null
+   * @return \Illuminate\Database\Eloquent\Collection
+   */
+   public function getAll()
+   {
+       return Size::get();
+   }
+
+
     /**
      * return  data with pagination
      *

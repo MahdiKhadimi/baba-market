@@ -18,6 +18,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = ProductService::getWithPagination();
+        $sizes = SizeService::getAll();
+        $colors = ColorService::getAll();
 
         return view('admin.products.index', compact('products'));
     }
