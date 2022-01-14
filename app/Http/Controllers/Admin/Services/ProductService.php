@@ -40,6 +40,12 @@ class ProductService extends Controller
             //relation M:N COLOR
             $product->colors()
                     ->sync($request->colors);
+                    //attributes
++            $result = self::mergAndRemoveNullAttributes($request);
++
++            //save attributes in the proudct_details table
++            self::saveProductDetails($result, $product);
+
 
             //relation M:N SIZE
             $product->sizes()
