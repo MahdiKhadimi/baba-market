@@ -26,25 +26,29 @@ class ProductService extends Controller
           try {
             DB::beginTransaction();
 
-
+            //save to db
+            $product = Product::create($request->toArray());
+           
             //set active
             $request['active'] = $request->has('active') ? true : false;
 
             //get upload image Name
             $request['image'] = uploadService::handle($request->file('cover'), config('shop.productCoverPath'), 'productCover');
 
-
-            //save to db
-            $product = Product::create($request->toArray());
+            //save Gallery
+            self::saveGalleriesImage($request, $product);
 
             //relation M:N COLOR
             $product->colors()
                     ->sync($request->colors);
-                    //attributes
-+            $result = self::mergAndRemoveNullAttributes($request);
-+
-+            //save attributes in the proudct_details table
-+            self::saveProductDetails($result, $product);
+            
+             //attributes
+            //get attributes which is not null
+ 
+            $result = self::mergAndRemoveNullAttributes($request);
+
+            //save attributes in the proudct_details table
+            self::saveProductDetails($result, $product);
 
 
             //relation M:N SIZE
@@ -58,6 +62,62 @@ class ProductService extends Controller
         }
 
     }
+
+    /*
+     |------------------------------
+     | Private Methods
+     |------------------------------
+     */
+
+    /**
+     * Merge attributes and remove the null title or null values
+     *
+     * @param Request $request
+     * @return array
+     */
+    private static function mergAndRemoveNullAttributes(Request $request): array
+    {
+        $titles = $request->attr_titles;
+        $values = $request->attr_values;
+
+        $merg = array_combine($titles, $values);
+
+        //remove if title or value was null or empty
+        $result = collect($merg)
+            ->reject(function ($value, $key) {
+                return empty($value) || empty($key);
+            })
+            ->all();
+        return $result;
+    }
+
+    /**
+     * Save Multiple Image for Product Galery
+     * @param Request $request
+     * @param $product
+     */
+    private static function saveGalleriesImage(Request $request, $product): void
+    {
+        if ($request->hasFile('galleries')) {
+
+            foreach ($request->file('galleries') as $image) {
+
+                //upload and get name
+                $imageName = uploadService::handle($image, config('shop.productGalleris'), 'gallery');
+
+
+                $product->product_galleries()
+                        ->create([
+                            ProductGalleries::c_image => $imageName
+                        ])/;
+
+            }
+        }
+
+
+    }
+
+
     
     
 }
