@@ -141,6 +141,7 @@ Route::get('/', function () {
     Route::get('/product/{product}/{slug}', [ProductController::class, 'getProductById'])
          ->name('get.product');
 
-
+    
+     Route::view('/t' , 'home');
 
    Route::get('/logout', [UserController::class,'logout'])->name('users.logout');
