@@ -62,4 +62,12 @@ class ProductController extends Controller
         return response()->json($subcategories);
     }
 
+    public function getProductById(Product $product , $slug)
+    
+    {
+    
+            return view('admin.products.product_details'  , compact('product'));
+     }
+    
+
 }

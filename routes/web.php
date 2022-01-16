@@ -137,6 +137,10 @@ Route::get('/', function () {
     Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
     ->name('subcategory.product');
 
+    //get product by id (more details)
+    Route::get('/product/{product}/{slug}', [ProductController::class, 'getProductById'])
+         ->name('get.product');
+
 
 
    Route::get('/logout', [UserController::class,'logout'])->name('users.logout');
