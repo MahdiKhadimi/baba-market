@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -142,6 +143,109 @@ Route::get('/', function () {
          ->name('get.product');
 
     
+        
+          /*
+           |------------------------------
+           | Register / Login
+           |------------------------------
+           */
+          //show register view
+          Route::view('/register', 'auth.register')
+               ->name('show.register');
+          
+          
+          Route::post('/register', [AuthController::class, 'register'])
+               ->name('register');
+          
+          //show login view
+          Route::view('/login', 'auth.login')
+               ->name('show.login');
+          
+         
+          //show otp view
+          Route::view('/otp/verify', 'auth.otp')
+               ->name('show.otp');
+          
+          Route::post('/optcheck', [AuthController::class, 'otpCheck'])
+               ->name('otp.check');
+          
+          Route::view('/get/password', 'auth.password')
+               ->name('get.password');
+          
+          Route::post('/set/password', [AuthController::class, 'setPassword'])
+               ->name('set.password');
+          
+          //--------------------------------
+          Route::group(['prefix' => 'dashboard'], function () {
+              Route::view('/', 'admin.layouts.app');
+          
+               /*
+                |------------------------------
+          @@ -142,4 +168,67 @@
+               Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
+                    ->name('subcategory.product');
+           });
+         
+          +//index shop
+     Route::get('/', [HomeController::class, 'index'])
+               ->name('index');
+          
+          //show single product
+          Route::get('/{product}/{slug}', [HomeController::class, 'getSingleProduct'])
+               ->name('get.product.home');
+          
+          /*
+           |------------------------------
+           | for test only
+          |------------------------------
+           |
+           |
+          |
+           |
+           |
+                |------------------------------
+          @@ -142,4 +168,67 @@
+               Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
+                    ->name('subcategory.product');
+           });
+        
+          //index shop
+          Route::get('/', [HomeController::class, 'index'])
+               ->name('index');
+          
+          //show single product
+          Route::get('/{product}/{slug}', [HomeController::class, 'getSingleProduct'])
+               ->name('get.product.home');
+          
+          /*
+           |------------------------------
+           | for test only
+           |------------------------------
+           |
+           |
+           |
+           */
+          Route::view('/t', 'singleproduct');
+          
+          Route::get('/cart/{id}/{title}/{cnt}', function ($id, $title, $cnt) {
+          
+              $cart[1] = ['id' => 1, 'title' => 'phone', 'cnt' => 2];
+              $cart[2] = ['id' => 2, 'title' => 'tshirt', 'cnt' => 3];
+          
+              $cart = serialize($cart);
+          
+          
+              $a = cookie('cart', $cart, 20);
+          
+              return redirect('/t')->withCookie($a);
+              //exist
+              //++
+              //not exist
+        //create
+     });
+          
+
+
      Route::view('/t' , 'home');
 
-   Route::get('/logout', [UserController::class,'logout'])->name('users.logout');
+   Route::get('/logout', [AuthController::class,'logout'])->name('users.logout');

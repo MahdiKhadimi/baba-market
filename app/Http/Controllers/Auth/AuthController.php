@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Auth\Services\AuthService;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Services\OTPService;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\OtpCheckRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\SetPasswordRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+
+class AuthController extends Controller
+{
+    public function logout()
+    {
+        Auth::logout();
+
+        return Redirect::to(route('index'));
+    }
+    /**
+     * register a new user
+     */
+    public function register(RegisterRequest $request)
+    {
+        $otp_code = AuthService::register($request);
+
+        if ($otp_code == false)
+            return redirect(route('show.register'))
+                ->with('msg', config('shop.otp_wait'));
+
+        //set cookie and send
+        $myTelCookie = cookie('tel', $request->tel, 400);
+
+        return redirect(route('show.otp'))
+            ->with('otp', config('shop.otp_succ') . $otp_code)
+            ->withCookie($myTelCookie);
+    }
+
+    /**
+     * Check OTP Code
+     * @param OtpCheckRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function otpCheck(OtpCheckRequest $request)
+    {
+        $cnt = OTPService::isExists(
+            self::getOtpFromRequest($request),
+            Cookie::get('tel')
+        );
+
+        //set cookie
+        $tel = cookie('tel', Cookie::get('tel'), 120);
+
+        //otp was exist so redirect to set password
+        if ($cnt->count()) {
+            return
+                redirect(route('get.password'))
+                    ->with('tel', $request->tel)
+                    ->withCookie($tel);
+        }
+
+        //otp wasnt exist so redirect back
+        return redirect(route('show.otp'))
+            ->with('msg', 'otp was wrong')
+            ->withCookie($tel);
+
+    }
+
+    public function setPassword(SetPasswordRequest $request)
+    {
+        AuthService::setPassword($request);
+        return redirect(route('index'));
+
+    }
+
+  
+}

@@ -13,6 +13,8 @@ if (!function_exists('SLUG')) {
     {
         return Str::lower(Str::replace(' ', '-', $text));
     }
+
+}  
     if (!function_exists('UNIQ')) {
 
         /**
@@ -34,4 +36,14 @@ if (!function_exists('SLUG')) {
             return config('shop.msg.create');
         }
     }
-}
+
+    if (!function_exists('NEW_OTP')) {
+            /**
+             * Generate 6 digit for OTP CODE
+             */
+        function NEW_OTP()
+        {
+            return rand(1111, 9999);
+         }
+         
+    }
