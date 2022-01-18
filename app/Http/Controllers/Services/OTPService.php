@@ -40,6 +40,17 @@ class OTPService extends Controller
     }
 
 
+    
+    public static function isExists($otpCode, $CookieTel)
+    {
+        return OTPCode::query()
+                      ->where('tel', '=', $CookieTel)
+                      ->where('code', '=', $otpCode)
+                      ->get();
+    }
+
+
+
   
 
 }

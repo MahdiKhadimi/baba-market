@@ -79,5 +79,23 @@ class AuthController extends Controller
 
     }
 
-  
+
+   /*
++     |------------------------------
++     | private Method
++     |------------------------------
++     |
++     */
++
++    /**
++     * Mix OTP code together  which is come form otp.blade.php view
++     *
++     * @param Request $request
++     * @return string
++     */
++    private static function getOtpFromRequest(Request $request)
++    {
++        return $request->first . $request->second . $request->third . $request->fourth;
++    }
+
 }
