@@ -17,6 +17,25 @@ use Illuminate\Support\Facades\Request;
 
 class AuthController extends Controller
 {
+    /**
+     * Login User By Tel and password
+     *
+     * @param LoginRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function login(LoginRequest $request)
+    {
+        $result = AuthService::getUserWhere($request);
+
+        if ($result){
+            return redirect(route('index'));
+        }
+
+
+        return redirect('login')->with('fail', config('shop.msg.fail'));
+
+
+    }
     public function logout()
     {
         Auth::logout();
@@ -79,23 +98,15 @@ class AuthController extends Controller
 
     }
 
-
-   /*
-+     |------------------------------
-+     | private Method
-+     |------------------------------
-+     |
-+     */
-+
-+    /**
-+     * Mix OTP code together  which is come form otp.blade.php view
-+     *
-+     * @param Request $request
-+     * @return string
-+     */
-+    private static function getOtpFromRequest(Request $request)
-+    {
-+        return $request->first . $request->second . $request->third . $request->fourth;
-+    }
+    /**
+     * Mix OTP code together  which is come form otp.blade.php view
+     *
+     * @param Request $request
+     * @return string
+     */
+    private static function getOtpFromRequest(Request $request)
+   {
+       return $request->first . $request->second . $request->third . $request->fourth;
+   }
 
 }

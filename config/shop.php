@@ -35,7 +35,8 @@ return [
     'discountImagePath'    => 'images\\discounts\\',// path for save discount images
 
     'msg'=>[
-        'create'=>'successfull created'
+        'create'=>'successfull created',
+        'fail'=>'UserName Or Password is incorrect',
     ]
 
 ];

@@ -179,52 +179,8 @@ Route::get('/', function () {
           Route::group(['prefix' => 'dashboard'], function () {
               Route::view('/', 'admin.layouts.app');
           
-               /*
-                |------------------------------
-          @@ -142,4 +168,67 @@
-               Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
-                    ->name('subcategory.product');
-           });
-         
-          +//index shop
-     Route::get('/', [HomeController::class, 'index'])
-               ->name('index');
+               
           
-          //show single product
-          Route::get('/{product}/{slug}', [HomeController::class, 'getSingleProduct'])
-               ->name('get.product.home');
-          
-          /*
-           |------------------------------
-           | for test only
-          |------------------------------
-           |
-           |
-          |
-           |
-           |
-                |------------------------------
-          @@ -142,4 +168,67 @@
-               Route::post('/product/subcategory', [ProductController::class, 'getSubCategory'])
-                    ->name('subcategory.product');
-           });
-        
-          //index shop
-          Route::get('/', [HomeController::class, 'index'])
-               ->name('index');
-          
-          //show single product
-          Route::get('/{product}/{slug}', [HomeController::class, 'getSingleProduct'])
-               ->name('get.product.home');
-          
-          /*
-           |------------------------------
-           | for test only
-           |------------------------------
-           |
-           |
-           |
-           */
           Route::view('/t', 'singleproduct');
           
           Route::get('/cart/{id}/{title}/{cnt}', function ($id, $title, $cnt) {
@@ -238,14 +194,16 @@ Route::get('/', function () {
               $a = cookie('cart', $cart, 20);
           
               return redirect('/t')->withCookie($a);
-              //exist
-              //++
-              //not exist
-        //create
-     });
+             });
           
 
 
+          Route::get('/l', function () {
+              \Illuminate\Support\Facades\Session::flush();
+              \Illuminate\Support\Facades\Auth::logout();
+              return redirect(route('login'));
+          });
+                       
      Route::view('/t' , 'home');
 
    Route::get('/logout', [AuthController::class,'logout'])->name('users.logout');
