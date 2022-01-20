@@ -34,9 +34,13 @@ return [
     'brandImagePath'    => 'images\\brands\\',
     'discountImagePath'    => 'images\\discounts\\',// path for save discount images
 
-    'msg'=>[
-        'create'=>'successfull created',
-        'fail'=>'UserName Or Password is incorrect',
-    ]
+    'msg'               => [
+         'create'             => 'successfully created',
+         'delete'             => 'successfully Delete',
+         'fail'               => 'UserName | Password is Invalid',
+         'add_wishlist'       => 'product successfully added to your wishlist ',
+         'was_exist_wishlist' => 'product was exist in your wishlist'
+     ]
+        
 
 ];

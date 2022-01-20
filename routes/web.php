@@ -22,6 +22,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+   /*
+ |------------------------------
+ | User
+ |------------------------------
+ |
+ |
+ |
+ */
+      Route::group(['prefix', 'user'], function () {
+     
+         Route::get('/add/wishlist/{product}', [UserController::class, 'addWishList'])
+              ->name('add.wish.user')
+              ->middleware('userauth');
+     
+        Route::get('/wishlist', [UserController::class, 'getUserWishList'])
+              ->name('show.wish.user');
+     
+         Route::get('/wishlist/{wishlist}', [UserController::class, 'removeWishList'])
+              ->name('del.wish.user')
+              ->can('delete', 'wishlist');
+     
+      });
+
     /*
      |------------------------------
      | category
@@ -179,7 +202,7 @@ Route::get('/', function () {
           Route::group(['prefix' => 'dashboard'], function () {
               Route::view('/', 'admin.layouts.app');
           
-               
+          });             
           
           Route::view('/t', 'singleproduct');
           
@@ -205,5 +228,6 @@ Route::get('/', function () {
           });
                        
      Route::view('/t' , 'home');
+
 
    Route::get('/logout', [AuthController::class,'logout'])->name('users.logout');
