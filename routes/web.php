@@ -45,6 +45,7 @@ Route::get('/', function () {
      
       });
 
+
     /*
      |------------------------------
      | category
@@ -165,7 +166,16 @@ Route::get('/', function () {
     Route::get('/product/{product}/{slug}', [ProductController::class, 'getProductById'])
          ->name('get.product');
 
-    
+    //add new product to basket , increase count
+    Route::post("/basket/add" , [UserController::class , 'addBasket'])
+        ->name('add.basket.user')->middleware('userauth');
+
+    //decrease proudct in basket cout field
+    Route::post("/basket/dec" , [UserController::class , 'decCount'])
+        ->name('dec.basket.user')->middleware('userauth');
+
+    Route::post('/basket/del', [UserController::class , 'delBasket'])
+        ->name('del.basket.user');
         
           /*
            |------------------------------
@@ -198,14 +208,20 @@ Route::get('/', function () {
           Route::post('/set/password', [AuthController::class, 'setPassword'])
                ->name('set.password');
           
-          //--------------------------------
+          
+               //--------------------------------
           Route::group(['prefix' => 'dashboard'], function () {
               Route::view('/', 'admin.layouts.app');
           
           });             
           
+
+
+
           Route::view('/t', 'singleproduct');
           
+
+
           Route::get('/cart/{id}/{title}/{cnt}', function ($id, $title, $cnt) {
           
               $cart[1] = ['id' => 1, 'title' => 'phone', 'cnt' => 2];
@@ -226,6 +242,9 @@ Route::get('/', function () {
               \Illuminate\Support\Facades\Auth::logout();
               return redirect(route('login'));
           });
+
+
+
                        
      Route::view('/t' , 'home');
 
