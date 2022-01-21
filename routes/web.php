@@ -248,5 +248,7 @@ Route::get('/', function () {
                        
      Route::view('/t' , 'home');
 
-
-   Route::get('/logout', [AuthController::class,'logout'])->name('users.logout');
+     Route::get('/logout', [AuthController::class, 'logout'])
+              ->name('logout')
+              ->middleware('userauth');
+     
