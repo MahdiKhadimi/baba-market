@@ -173,9 +173,15 @@ Route::get('/', function () {
     //decrease proudct in basket cout field
     Route::post("/basket/dec" , [UserController::class , 'decCount'])
         ->name('dec.basket.user')->middleware('userauth');
-
-    Route::post('/basket/del', [UserController::class , 'delBasket'])
+        
+         //remove basket
+    Route::get('/basket/del/{basket}', [UserController::class, 'delBasket'])
         ->name('del.basket.user');
+
+
+    Route::get('/basket/show/all', [UserController::class, 'showAllBasket'])
+         ->name('all.basket.user');
+
         
           /*
            |------------------------------
