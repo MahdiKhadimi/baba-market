@@ -182,6 +182,8 @@ Route::get('/', function () {
     Route::get('/basket/show/all', [UserController::class, 'showAllBasket'])
          ->name('all.basket.user');
 
+    Route::get('/basket/incr/{basket}' , [UserController::class , 'IncreaseCount'])
+                 ->name('increase.basket.user');
         
           /*
            |------------------------------
