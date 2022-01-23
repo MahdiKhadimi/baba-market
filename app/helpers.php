@@ -47,3 +47,16 @@ if (!function_exists('SLUG')) {
          }
          
     }
+
+      if (!function_exists('DISCOUNT')) {
+            /**
+             * Calculate Discount
+             */
+            function DISCOUNT($actual_price, $percent)
+            {
+                return (int)($actual_price - ($actual_price * ($percent / 100)));
+         }
+        
+       }   
+
+       
