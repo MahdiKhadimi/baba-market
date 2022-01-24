@@ -178,9 +178,9 @@ Route::get('/', function () {
     Route::get('/basket/del/{basket}', [UserController::class, 'delBasket'])
         ->name('del.basket.user');
 
+     Route::match(['get','post'],  '/basket/show/all', [UserController::class, 'showAllBasket'])->name('all.basket.user');
 
-    Route::get('/basket/show/all', [UserController::class, 'showAllBasket'])
-         ->name('all.basket.user');
+    
 
     Route::get('/basket/incr/{basket}' , [UserController::class , 'IncreaseCount'])
                  ->name('increase.basket.user');

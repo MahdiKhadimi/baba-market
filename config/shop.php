@@ -41,11 +41,12 @@ return [
          'add_wishlist'       => 'product successfully added to your wishlist ',
          'was_exist_wishlist' => 'product was exist in your wishlist',
          'add_basket' => 'Product Successfully Added To Your Basket',
-        'increase_count' => 'Product Successfully Increased +1',
-        'dec_count_succ' => 'Product Successfully Decreased -1',
-        'dec_count_fail' => 'Product Failed Decreased -1',
+         'increase_count' => 'Product Successfully Increased +1',
+         'dec_count_succ' => 'Product Successfully Decreased -1',
+         'dec_count_fail' => 'Product Failed Decreased -1',
+         'coupon_expired' => 'The Coupon Code Is Not Valid!'
 
      ]
         
-
+e
 ];
