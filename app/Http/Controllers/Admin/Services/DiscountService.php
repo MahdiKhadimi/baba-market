@@ -41,6 +41,21 @@ class DiscountService extends Controller
     {
         return Discount::paginate($perPage ?? config('shop.perPage'));
     }
-	
-	
+
+       /**
+     * check Discount code is valide
+     *
+     * @param $title
+     * @return bool
+     */
+    public static function isValidaDiscount($title)
+    {
+        $discount = self::findByTitle($title);
+
+        return now()->isBetween($discount->started_at , $discount->end_at);
+   }
+ 
 }
+
+	
+	

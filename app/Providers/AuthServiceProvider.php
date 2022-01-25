@@ -14,7 +14,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-        Wishlist::class => WishListPolicy::class
+        Wishlist::class => WishListPolicy::class,
+        Order::class =>UserOrderPolicy::class
+
     ];
 
     /**

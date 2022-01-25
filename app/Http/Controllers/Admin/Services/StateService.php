@@ -39,5 +39,5 @@ class StateService extends Controller
         $city = CityService::getById($cityId);
         return $city->states;
     }
-    
+         
 }

@@ -223,10 +223,23 @@ Route::get('/', function () {
           
           });             
           
+            //show address
+      Route::match(['get', 'post'], '/basket/show/address', [UserController::class, 'showAddress'])
+         ->name('address.basket.user');
+
+      Route::post('/basket/add/address', [UserController::class, 'AddAddress'])
+         ->name('address.add.user');
+
+      Route::post('/basket/get/state', [UserController::class, 'GetStateByCityId'])
+         ->name('state.basket.user');
+
+      //pay
+       Route::get('/basket/pay/{order}', [UserController::class, 'Pay'])
+         ->name('pay.user');
 
 
 
-          Route::view('/t', 'singleproduct');
+     Route::view('/t', 'singleproduct');
           
 
 
