@@ -37,10 +37,7 @@ class OTPService extends Controller
     {
         $otp->update(['code' => NEW_OTP()]);
         return $otp->code;
-    }
-
-
-    
+    }    
     public static function isExists($otpCode, $CookieTel)
     {
         return OTPCode::query()

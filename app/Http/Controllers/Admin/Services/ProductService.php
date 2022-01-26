@@ -128,16 +128,16 @@ class ProductService extends Controller
     }
 
      /**
-+     * if paid was successfull
-+     * then decrease stock count
-+     * @param OrderItem $item
-+     */
-+    public static function DecreaseStockCount(OrderItem $item)
-+    {
-+        Product::query()
-+               ->where('id', $item->product->id)
-+               ->update(['stock' => $item->product->stock - $item->count >= 0 ? $item->product->stock - $item->count : 0]);
-+    }
+     * if paid was successfull
+     * then decrease stock count
+     * @param OrderItem $item
+     */
+    public static function DecreaseStockCount(OrderItem $item)
+    {
+        Product::query()
+               ->where('id', $item->product->id)
+               ->update(['stock' => $item->product->stock - $item->count >= 0 ? $item->product->stock - $item->count : 0]);
+    }
 
     
     

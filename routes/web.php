@@ -218,11 +218,21 @@ Route::get('/', function () {
           
           
                //--------------------------------
-          Route::group(['prefix' => 'dashboard'], function () {
+               Route::group(['prefix' => 'dashboard' , 'middleware'=>'adminauth'], function () {
+
               Route::view('/', 'admin.layouts.app');
           
           });             
           
+          +/*
++ |------------------------------
++ | Admin Routes
++ |------------------------------
++ |
++ |
++ |
++ */
+
             //show address
       Route::match(['get', 'post'], '/basket/show/address', [UserController::class, 'showAddress'])
          ->name('address.basket.user');
