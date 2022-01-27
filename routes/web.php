@@ -184,7 +184,22 @@ Route::get('/', function () {
 
     Route::get('/basket/incr/{basket}' , [UserController::class , 'IncreaseCount'])
                  ->name('increase.basket.user');
-        
+
+     /*
+     |------------------------------
+     | Orders
+     |------------------------------
+     |
+     */
+    Route::get('/orders/all' , [OrderController::class, 'index'])
+        ->name('index.order');
+
+    Route::get('/orders/single/{order}' , [OrderController::class , 'SingleOrder'])
+        ->name('single.order');
+
+    Route::post('/order/change/status' , [OrderController::class , 'ChangeStatus'])
+        ->name('change.status.order');
+            
           /*
            |------------------------------
            | Register / Login
@@ -218,11 +233,11 @@ Route::get('/', function () {
           
           
                //--------------------------------
-               Route::group(['prefix' => 'dashboard' , 'middleware'=>'adminauth'], function () {
+               Route::group(['prefix' => 'dashboard' , 'middleware'=>'auth','adminauth'], function () {
 
               Route::view('/', 'admin.layouts.app');
           
-          });             
+            });             
           
           +/*
 + |------------------------------
