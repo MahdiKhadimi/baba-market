@@ -46,7 +46,8 @@ return [
          'dec_count_fail' => 'Product Failed Decreased -1',
          'coupon_expired' => 'The Coupon Code Is Not Valid!',
          'ail_status_order' => 'somthing goes wrong!',
-+        'fail_update_order_status' => 'Fail while Updating Order Status / try a again ...'
+        'fail_update_order_status' => 'Fail while Updating Order Status / try a again ...',
+         'empty_search' =>'The Order Search Result Was Empty'
 
     ],
         

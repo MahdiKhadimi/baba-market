@@ -67,4 +67,17 @@ class OrderService extends Controller
     {
         return Order::query()->count();
     }
+
+     /**
+     * Search Order columns payment_code | Tracking Code
+     *
+     * @param $code
+     */
+    public static function Search($code)
+    {
+        return Order::query()
+                    ->where('tracking_code', $code)
+                    ->orWhere('payment_code', $code)->first();
+    }
+
 }
