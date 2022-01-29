@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\Services\SizeService;
+use App\Models\Size;
 use App\Http\Controllers\Controller;
 
-use App\Models\Size;
+use App\Http\Requests\UpdateSizeRequest;
+use App\Http\Controllers\Admin\Services\SizeService;
 
 class SizeController extends Controller
 {
@@ -18,6 +19,28 @@ class SizeController extends Controller
         $sizes = SizeService::getWithPagination();
         return view('admin.sizes.index', compact('sizes'));
     }
-  
-}
 
+    public function ShowEdit(Size $size)
+     {
+            return view('admin.sizes.edit', compact('size'));
+     }
+    
+        /**
+         * Update Size
+         */
+        public function Update(UpdateSizeRequest $request)
+        {
+            $update_result = SizeService::update($request->id, $request->title);
+    
+            if ($update_result === false)
+                return redirect()
+                    ->back()
+                    ->with('fail', config('shop.msg.fail_update'));
+    
+    
+            return redirect()
+                ->back()
+                ->with('success', config('shop.msg.update'));
+        }
+    
+}

@@ -52,5 +52,14 @@ class SizeService extends Controller
         return redirect(route('index.size'))->with('success', msg_succ());
     }
 
+    public static function update($id, $title)
+        {
+            $size  = Size::query()->find($id);
+            return $size->update([
+                'title' =>$title
+            ]);
+    
+        }
+    
     
 }

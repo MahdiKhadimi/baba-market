@@ -98,6 +98,12 @@ Route::get('/', function () {
     //store new
     Route::post('/size', [SizeController::class, 'store'])
          ->name('store.size');
+    //show edit form
+    Route::get('/edit/{size}', [SizeController::class, 'ShowEdit'])
+         ->name('show.edit.size');
+
+    Route::post('/edit', [SizeController::class, 'Update'])
+         ->name('update.size');
 
      /*
      |------------------------------

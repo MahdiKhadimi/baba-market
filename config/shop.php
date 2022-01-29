@@ -38,6 +38,7 @@ return [
          'create'             => 'successfully created',
          'delete'             => 'successfully Delete',
          'fail'               => 'UserName | Password is Invalid',
+         'fail_update' => 'Faile While Updating',
          'add_wishlist'       => 'product successfully added to your wishlist ',
          'was_exist_wishlist' => 'product was exist in your wishlist',
          'add_basket' => 'Product Successfully Added To Your Basket',
