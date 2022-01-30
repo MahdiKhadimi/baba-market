@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Services;
 
-use App\Http\Controllers\Controller;
 use App\Models\Color;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateColorRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 class ColorService extends Controller
@@ -41,4 +42,20 @@ class ColorService extends Controller
                     ->create($request->toArray());
     }
     
+     /**
+     * update color by id
+     * @param $id
+     * @param $name
+     * @param $code
+     */
+    public static function update($id, $name, $code)
+    {
+        $color = Color::query()
+                      ->find($id);
+        return $color->update([
+            'name' => $name,
+            'code' => $code
+        ]);
+    }
+
 }
