@@ -58,6 +58,14 @@ Route::get('/', function () {
     Route::post('/category', [CategoryController::class, 'store'])
     ->name('store.category');
 
+    //show edit form
+    Route::get('/category/edit/{category}', [CategoryController::class, 'ShowEdit'])
+         ->name('show.edit.category');
+
+    //update category
+    Route::post('/category/edit' , [CategoryController::class , 'Update'])
+        ->name('update.category');
+
 
      /*
      |------------------------------

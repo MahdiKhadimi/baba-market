@@ -26,4 +26,33 @@ class CategoryController extends Controller
 
     }
 
+    
+    /**
+     * show edit form
+     * @param Category $category
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function ShowEdit(Category $category)
+    {
+        $is_parent_check = CategoryService::CheckIsParent($category);
+
+        if ($is_parent_check) {
+            $categories = CategoryService::getAll();
+        }
+
+        return view('admin.categories.edit', compact('category', isset($categories) ? 'categories' : null));
+    }
+
+    public function Update(UpdateCategoryRequest $request)
+    {
+        $category_update_result = CategoryService::Update($request);
+        if (!$category_update_result)
+            return redirect()
+                ->back()
+                ->with('fail', config('shop.msg.fail_update'));
+
+        return redirect()
+            ->back()
+      
+}
 }
