@@ -34,4 +34,24 @@ class BrandService extends Controller
              ]);
     }
 
+
+    public static function Update(Request $request)
+    {
+
+        $brand = Brand::query()
+                      ->find($request->id);
+
+        if ($request->image != null) {
+            uploadService::RemoveImage($brand->image, config('shop.brandImagePath'));
+            $uploadImageName = uploadService::handle($request->image, config('shop.brandImagePath'), 'brand');
+        }
+
+        return $brand->update([
+            'title' => $request->title,
+            'slug'  => $request->slug,
+            'image' => $request->image ? $uploadImageName : $brand->image,
+        ]);
+    }
+
+
 }

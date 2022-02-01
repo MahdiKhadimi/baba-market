@@ -79,7 +79,12 @@ Route::get('/', function () {
     //store new
     Route::post('/brand', [BrandController::class, 'store'])
          ->name('store.brand');
-
+    Route::get('/brand/edit/{brand}', [BrandController::class, 'ShowEdit'])
+                  ->name('show.edit.brand');
+         
+    Route::post('/brand/update', [BrandController::class, 'Update'])
+                  ->name('update.brand');
+         
 
  /*
      |------------------------------
