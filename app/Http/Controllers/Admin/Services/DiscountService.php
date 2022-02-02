@@ -55,7 +55,38 @@ class DiscountService extends Controller
         return now()->isBetween($discount->started_at , $discount->end_at);
    }
  
+   public static function Update(Request $request)
+       {
+           try {
+               DB::beginTransaction();
+   
+               $discount = Discount::query()
+                                   ->find($request->id);
+   
+   
+               if ($request->image != null) {
+                   uploadService::RemoveImage($discount->image, config('shop.discountImagePath'));
+                $uploadImageName = uploadService::handle($request->image, config('shop.discountImagePath'), 'discount');
+               }
+   
+               $update_result = $discount->update([
+                   'title'      => $request->title,
+                   'percent'    => $request->percent,
+                   'started_at' => $request->started_at,
+                   'end_at'     => $request->end_at,
+                   'image'      => $request->image ? $uploadImageName : $discount->image,
+               ]);
+   
+               DB::commit();
+               return $update_result;
+   
+           } catch (\Exception $e) {
+               Log::error($e);
+               DB::rollBack();
+               return false;
+           }
 }
 
+}
 	
 	

@@ -167,7 +167,13 @@ Route::get('/', function () {
     //store new discount
     Route::post('/discount', [DiscountController::class, 'store'])
     ->name('store.discount');
+   //show edit form
+    Route::get('/discount/edit/{discount}', [DiscountController::class, 'ShowEdit'])
+         ->name('show.edit.discount');
 
+    //update
+    Route::post('/discount/update', [DiscountController::class, 'Update'])
+         ->name('update.discount');
 
    /*
      |------------------------------
@@ -180,7 +186,13 @@ Route::get('/', function () {
     //show create form
     Route::get('product/create', [ProductController::class, 'create'])
          ->name('create.product');
-
+   //show edit form
+    Route::get('/product/{product}', [ProductController::class, 'ShowEdit'])
+            ->name('show.edit.product');
+  
+     Route::post('/product/update', [ProductController::class, 'Update'])
+           ->name('update.product');
+  
     //save product to db
     Route::post('/product', [ProductController::class, 'store'])
          ->name('store.product');
