@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\Services\BrandService;
 use App\Http\Controllers\Admin\Services\ColorService;
 use App\Http\Controllers\Admin\Services\ProductService;
 use App\Http\Controllers\Admin\Services\CategoryService;
-use App\Http\Controllers\Admin\Services\DiscountService;
+
 
 class ProductController extends Controller
 {
@@ -87,6 +87,15 @@ class ProductController extends Controller
                  ));
           }
         
-     
+          public function Update(UpdateProductRequest $request)
+              {
+                  $update_result = ProductService::Update($request);
+          
+                  if ($update_result) {
+                      return redirect()->back()->with('succ',config('shop.msg.update'));
+                  }
+                  return  redirect()->back()->with('fail' , config('shop.msg.fail_update'));
+              }
+              
 
 }

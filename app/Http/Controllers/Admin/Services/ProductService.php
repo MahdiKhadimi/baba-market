@@ -22,48 +22,59 @@ class ProductService extends Controller
     public static function create(Request $request)
     {
 
-          
-          try {
+        try {
+
             DB::beginTransaction();
 
-            //save to db
-            $product = Product::create($request->toArray());
-             //save product to proudcts table
-             $request['slug'] = SLUG($request->slug);
-          
             //set active
             $request['active'] = $request->has('active') ? true : false;
 
-          
             //get upload image Name
             $request['image'] = uploadService::handle($request->file('cover'), config('shop.productCoverPath'), 'productCover');
+
+            //save product to proudcts table
+            $request['slug'] = SLUG($request->slug);
+
+            $product = Product::create($request->toArray());
 
             //save Gallery
             self::saveGalleriesImage($request, $product);
 
-            //relation M:N COLOR
-            $product->colors()
-                    ->sync($request->colors);
-            
-             //attributes
             //get attributes which is not null
- 
-            $result = self::mergAndRemoveNullAttributes($request);
-
-            //save attributes in the proudct_details table
-            self::saveProductDetails($result, $product);
 
 
-            //relation M:N SIZE
-            $product->sizes()
-                    ->sync($request->sizes);
+            if ($request->has('attr_titles') && $request->has('attr_values')) {
+
+                $result = self::mergAndRemoveNullAttributes($request);
+
+                //save attributes in the proudct_details table
+                self::saveProductDetails($result, $product);
+            }
+
+            if ($request->has('colors')) {
+
+                //save color /relation M:N COLOR
+                $product->colors()
+                        ->sync($request->colors);
+            }
+
+            if ($request->has('sizes')) {
+                //save size / relation M:N SIZE
+
+                $product->sizes()
+                        ->sync($request->sizes);
+            }
 
             DB::commit();
+            return true;
+
         } catch (\Exception $e) {
             Log::error($e);
             DB::rollBack();
+
         }
 
+        return  false;
     }
 
     /*
@@ -95,7 +106,23 @@ class ProductService extends Controller
     }
 
     /**
-     * Save Multiple Image for Product Galery
+     * Save Attributes in the product_details Table
+     * @param array $result //comes from private method mergAndRemoveNullAttributes
+     * @param $product //comes from recently created product in products Table
+     */
+    private static function saveProductDetails(array $result, $product): void
+    {
+        foreach ($result as $title => $description) {
+            $product->details()
+                    ->create([
+                        ProductDetail::c_title       => $title,
+                        ProductDetail::c_description => $description
+                    ]);
+        }
+    }
+
+    /**
+     * Save Multi Image for Product Galery
      * @param Request $request
      * @param $product
      */
@@ -112,7 +139,7 @@ class ProductService extends Controller
                 $product->product_galleries()
                         ->create([
                             ProductGalleries::c_image => $imageName
-                        ])/;
+                        ]);
 
             }
         }
@@ -127,7 +154,7 @@ class ProductService extends Controller
 
     }
 
-     /**
+    /**
      * if paid was successfull
      * then decrease stock count
      * @param OrderItem $item
@@ -139,6 +166,132 @@ class ProductService extends Controller
                ->update(['stock' => $item->product->stock - $item->count >= 0 ? $item->product->stock - $item->count : 0]);
     }
 
-    
-    
+    /**
+     * Update a Product
+     * @param \App\Http\Requests\UpdateProductRequest $request
+     */
+    public static function Update(Request $request)
+    {
+
+        $product = Product::query()
+                          ->find($request->id);
+
+        if (empty($product)) {
+            return false;
+        }
+
+
+        try {
+
+            DB::beginTransaction();
+
+            //set active
+            $request['active'] = $request->has('active') ? true : false;
+
+            $request['slug'] = SLUG($request->slug);
+
+            //get upload image Name
+
+            if ($request->hasFile('cover')) {
+
+                uploadService::RemoveImage($product->image, config('shop.productCoverPath'));
+                $request['image'] = uploadService::handle($request->file('cover'), config('shop.productCoverPath'), 'productCover');
+            }
+
+
+            $product->update($request->toArray());
+            $product->refresh();
+
+            if ($request->hasFile('galleries')) {
+
+                self::updateGalleriesImage($request, $product);
+            }
+
+
+            if ($request->has('attr_titles') && $request->has('attr_values')) {
+
+
+                //get attributes which is not null
+                $result = self::mergAndRemoveNullAttributes($request);
+
+                //update attributes in the proudct_details table
+
+                $product->details()
+                        ->delete();
+
+                foreach ($result as $title => $description) {
+                    ProductDetail::query()
+                                 ->create([
+                                     'product_id'  => $product->id,
+                                     'title'       => $title,
+                                     'description' => $description
+                                 ]);
+                }
+            }
+
+
+            $product->colors()
+                    ->sync($request->colors);
+
+            //save size / relation M:N SIZE
+            $product->sizes()
+                    ->sync($request->sizes);
+
+            DB::commit();
+            return true;
+
+        } catch (\Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+
+        }
+
+        return false;
+
+
+    }
+
+    /**
+     * Update product Galleries Image  ,
+     * first remove  old Images then upload new images and save to db
+     * @param $request
+     * @param $product
+     */
+    private static function updateGalleriesImage($request, $product)
+    {
+
+
+        $productGalleries = ProductGalleries::query()
+                                            ->where('id', $product->id)
+                                            ->get();
+
+        uploadService::removeImages($productGalleries, config('shop.productGalleris'));
+
+        $product->product_galleries()
+                ->delete();
+
+        foreach ($request->file('galleries') as $galleryImage) {
+            //upload
+            $upload_gall = uploadService::handle($galleryImage, config('shop.productGalleris'), 'gallery');
+
+            $product->product_galleries()
+                    ->create([
+                        'image' => $upload_gall
+                    ]);
+
+
+        }
+
+    }
+
+    /**
+     * get all product count
+     */
+    public static function count()
+    {
+        return Product::query()
+                      ->count();
+    }
+
+
 }
