@@ -18,9 +18,8 @@ use App\Http\Controllers\Admin\DiscountController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [DashboardController::class , 'index'])
+         ->name('index.admin.dashboard');
 
    /*
  |------------------------------
