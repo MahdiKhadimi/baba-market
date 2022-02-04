@@ -88,4 +88,26 @@ class CategoryService
         ]);
     }
 
-}
+   /**
+     * get menue
+     * @return array
+     */
+    public static function getMenue()
+    {
+        $maincategories = CategoryService::getMainCategories();
+
+        foreach ($maincategories as $key => $cat) {
+
+            $data['data'][$key] = ['title' => $cat->title, 'id' => $cat->id];
+
+            if ($cat->subcategories()
+                    ->count()) {
+                foreach ($cat->subcategories as $key1 => $sub)
+                    $data['data'][$key]['data'] [$key1] = ['title' => $sub->title, 'id' => $sub->id];
+            }
+
+        }
+        return $data;
+
+    }
+}  
