@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -216,7 +218,7 @@ Route::get('/', [DashboardController::class , 'index'])
     Route::get('/basket/del/{basket}', [UserController::class, 'delBasket'])
         ->name('del.basket.user');
 
-     Route::match(['get','post'],  '/basket/show/all', [UserController::class, 'showAllBasket'])->name('all.basket.user');
+     Route::any('/basket/show/all', [UserController::class, 'showAllBasket'])->name('all.basket.user');
 
     
 
@@ -277,7 +279,7 @@ Route::get('/', [DashboardController::class , 'index'])
           
             });             
           
-          +/*
+/*
 + |------------------------------
 + | Admin Routes
 + |------------------------------
@@ -287,7 +289,7 @@ Route::get('/', [DashboardController::class , 'index'])
 + */
 
             //show address
-      Route::match(['get', 'post'], '/basket/show/address', [UserController::class, 'showAddress'])
+      Route::any('/basket/show/address', [UserController::class, 'showAddress'])
          ->name('address.basket.user');
 
       Route::post('/basket/add/address', [UserController::class, 'AddAddress'])

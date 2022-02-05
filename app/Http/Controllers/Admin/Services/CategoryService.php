@@ -95,7 +95,7 @@ class CategoryService
     public static function getMenue()
     {
         $maincategories = CategoryService::getMainCategories();
-
+       
         foreach ($maincategories as $key => $cat) {
 
             $data['data'][$key] = ['title' => $cat->title, 'id' => $cat->id];
