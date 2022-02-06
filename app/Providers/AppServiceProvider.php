@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Observers\CategoryObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
@@ -28,8 +30,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::directive('money', function ($money) {
                 return "<?php echo number_format((int)$money); ?>";
+
 });
 
+//assign observer
+Category::observe(CategoryObserver::class);
 Schema::defaultStringLength(191);
 
 Paginator::useBootstrap();
