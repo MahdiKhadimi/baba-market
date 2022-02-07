@@ -28,7 +28,8 @@ class AuthController extends Controller
         $result = AuthService::getUserWhere($request);
 
         if ($result){
-            return redirect(route('index'));
+           
+            return redirect(route('index.admin.dashboard'));
         }
 
 
