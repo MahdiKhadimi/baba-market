@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Brand;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
@@ -328,7 +329,7 @@ Route::get('/', [DashboardController::class , 'index'])
               \Illuminate\Support\Facades\Session::flush();
               \Illuminate\Support\Facades\Auth::logout();
               return redirect(route('login'));
-              return Category::factory()->create();
+              return Brand::factory()->create();
           });
 
 
