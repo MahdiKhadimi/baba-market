@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-
+        Product::truncate();
++        Product::factory(2)->create();
         // \App\Models\User::factory(10)->create();
 
 

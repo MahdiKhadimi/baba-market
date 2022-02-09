@@ -28,25 +28,9 @@ class HomeController extends Controller
     public function getSingleProduct(Product $product, $slug)
     {
         $data = MenueService::getMenuAndSetCache();
-
+;
          $comments = CommentService::getWithPagination($product);
         return view('singleproduct', compact('product' , 'data' ,'comments'));
-    }
-
-     /**
-     * get category for show in the menu bar
-     * with create cache
-     * @return mixed
-     */
-    private function getMenuAndSetCache()
-    {
-        if (!Cache::has('data')) {
-
-            $data = CategoryService::getMenue();
-            Cache::add('data', $data);
-        }
-        $data = Cache::get('data', now()->addMonth());
-      
     }
 
 }
