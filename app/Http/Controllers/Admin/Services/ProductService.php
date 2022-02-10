@@ -34,14 +34,11 @@ class ProductService extends Controller
 
             //save product to proudcts table
             $request['slug'] = SLUG($request->slug);
-
             $product = Product::create($request->toArray());
-
+            
             //save Gallery
             self::saveGalleriesImage($request, $product);
-
             //get attributes which is not null
-
 
             if ($request->has('attr_titles') && $request->has('attr_values')) {
 

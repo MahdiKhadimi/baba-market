@@ -167,7 +167,6 @@
                                 </div>
                             @enderror
 
-
                             {{-- coupon is not valid ( may be expired or sooner used ) --}}
                             @isset($coupon_valid)
                                 <div class="alert alert-danger">

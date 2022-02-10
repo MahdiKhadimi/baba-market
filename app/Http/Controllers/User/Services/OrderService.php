@@ -55,6 +55,7 @@ class OrderService extends Controller
      */
     public static function newCount()
     {
+        
         return Order::query()->where('status', Order::status_paid)->count();
     }
 
