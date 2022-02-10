@@ -42,15 +42,12 @@ class ProductController extends Controller
         $create_result = ProductService::create($request);
 
         if ($create_result) {
-
             return redirect(route('create.product'))->with('success', config('shop.msg.create'));
         }
 
         return redirect(route('create.product'))->with('fail', config('shop.msg.fail_create'));
 
-
     }
-
 
     /***
      * get sub Category by id
@@ -62,16 +59,13 @@ class ProductController extends Controller
 
         return response()->json($subcategories);
     }
-
-    public function getProductById(Product $product , $slug)
-    
+    public function getProductById(Product $product , $slug)    
     {
-    
+
             return view('admin.products.product_details'  , compact('product'));
      }
-    
      public function ShowEdit(Product $product)
-         {
+      {
              //return $product;
              $sizes = SizeService::getAll();
              $categories = CategoryService::getAll();
@@ -85,8 +79,7 @@ class ProductController extends Controller
                      'colors',
                      'brands'
                  ));
-          }
-        
+          }  
           public function Update(UpdateProductRequest $request)
               {
                   $update_result = ProductService::Update($request);
