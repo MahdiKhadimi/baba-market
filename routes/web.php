@@ -222,6 +222,10 @@ Route::get('/', [DashboardController::class , 'index'])
 
      Route::any('/basket/show/all', [UserController::class, 'showAllBasket'])->name('all.basket.user');
 
+     
+    Route::post('/add/comment/{product}'  , [UserController::class , 'addComment'])
+        ->name('add.comment.user');
+
     
 
     Route::get('/basket/incr/{basket}' , [UserController::class , 'IncreaseCount'])
