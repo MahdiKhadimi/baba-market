@@ -48,7 +48,10 @@ return [
          'coupon_expired' => 'The Coupon Code Is Not Valid!',
          'ail_status_order' => 'somthing goes wrong!',
         'fail_update_order_status' => 'Fail while Updating Order Status / try a again ...',
-         'empty_search' =>'The Order Search Result Was Empty'
+         'empty_search' =>'The Order Search Result Was Empty',
+         'succ_comment' =>'Your Comment successfully sbmited , after review it will be shown ' ,
+        'fail_commment' =>'Somthing Goes Wrong , try again'
+
 
     ],
         
