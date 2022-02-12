@@ -245,7 +245,22 @@ Route::get('/', [DashboardController::class , 'index'])
 
     Route::post('/order/change/status' , [OrderController::class , 'ChangeStatus'])
         ->name('change.status.order');
-            
+          
+        Route::get('/comments/all', [CommentController::class, 'index'])
+                 ->name('show.comments');
+        
+            Route::get('/comment/{comment}/delete', [CommentController::class, 'delete'])
+                 ->name('delete.comment');
+        
+            Route::get('/comment/{comment}/show', [CommentController::class, 'showComment'])
+                 ->name('show.comment');
+        
+            Route::get('/commnet/{comment}/reply' , [CommentController::class , 'addReply'])
+                ->name('add.reply.comment');
+        
+            Route::get('/comment/{comment}/change-show' , [CommentController::class , 'changeShowStatus'])
+                ->name('change.show.comment');
+           
           /*
            |------------------------------
            | Register / Login
