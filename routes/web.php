@@ -246,21 +246,30 @@ Route::get('/', [DashboardController::class , 'index'])
     Route::post('/order/change/status' , [OrderController::class , 'ChangeStatus'])
         ->name('change.status.order');
           
-        Route::get('/comments/all', [CommentController::class, 'index'])
+     Route::get('/comments/all', [CommentController::class, 'index'])
                  ->name('show.comments');
         
-            Route::get('/comment/{comment}/delete', [CommentController::class, 'delete'])
-                 ->name('delete.comment');
+     Route::get('/comment/{comment}/delete', [CommentController::class, 'delete'])
+                  ->name('delete.comment');
         
-            Route::get('/comment/{comment}/show', [CommentController::class, 'showComment'])
+     Route::get('/comment/{comment}/show', [CommentController::class, 'showComment'])
                  ->name('show.comment');
         
-            Route::get('/commnet/{comment}/reply' , [CommentController::class , 'addReply'])
+     Route::get('/commnet/{comment}/reply' , [CommentController::class , 'addReply'])
                 ->name('add.reply.comment');
         
-            Route::get('/comment/{comment}/change-show' , [CommentController::class , 'changeShowStatus'])
+     Route::get('/comment/{comment}/change-show' , [CommentController::class , 'changeShowStatus'])
                 ->name('change.show.comment');
            
+         
+      //history
+    Route::get('/basket/history', [UserController::class, 'userBuyHistory'])
+         ->name('history.basket.user');
+
+    //basket item in history
+    Route::get('/basket/{order}/items' , [UserController::class , 'getOrderItems'])
+        ->name('items.basket.user');
+          
           /*
            |------------------------------
            | Register / Login
