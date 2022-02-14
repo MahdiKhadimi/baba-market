@@ -237,13 +237,13 @@ Route::get('/', [DashboardController::class , 'index'])
      |------------------------------
      |
      */
-    Route::get('/orders/all' , [OrderController::class, 'index'])
+     Route::get('/orders/all' , [OrderController::class, 'index'])
         ->name('index.order');
 
-    Route::get('/orders/single/{order}' , [OrderController::class , 'SingleOrder'])
+     Route::get('/orders/single/{order}' , [OrderController::class , 'SingleOrder'])
         ->name('single.order');
 
-    Route::post('/order/change/status' , [OrderController::class , 'ChangeStatus'])
+     Route::post('/order/change/status' , [OrderController::class , 'ChangeStatus'])
         ->name('change.status.order');
           
      Route::get('/comments/all', [CommentController::class, 'index'])
@@ -261,7 +261,8 @@ Route::get('/', [DashboardController::class , 'index'])
      Route::get('/comment/{comment}/change-show' , [CommentController::class , 'changeShowStatus'])
                 ->name('change.show.comment');
            
-         
+     
+                
       //history
     Route::get('/basket/history', [UserController::class, 'userBuyHistory'])
          ->name('history.basket.user');
@@ -269,7 +270,25 @@ Route::get('/', [DashboardController::class , 'index'])
     //basket item in history
     Route::get('/basket/{order}/items' , [UserController::class , 'getOrderItems'])
         ->name('items.basket.user');
-          
+         
+          /*
+     |------------------------------
+     | Profile
+     |------------------------------
+     */
+    //show view
+    Route::get('/profile', [AdminProfileController::class, 'showProfile'])
+         ->name('show.profile.admin');
+
+    Route::post('/profile', [AdminProfileController::class, 'updateProfile'])
+         ->name('update.profile.admin');  
+    
+   //show profile view
+    Route::get('/user/profile', [UserController::class, 'showProfile'])
+         ->name('show.profile.user');
+
+    //update
+    Route::post('/user/profile', [UserController::class, 'updateProfile'])         ->name('update.profile.user');    
           /*
            |------------------------------
            | Register / Login
