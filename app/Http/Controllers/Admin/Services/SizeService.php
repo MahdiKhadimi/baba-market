@@ -19,7 +19,6 @@ class SizeService extends Controller
        return Size::get();
    }
 
-
     /**
      * return  data with pagination
      *

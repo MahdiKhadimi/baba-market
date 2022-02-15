@@ -7,13 +7,10 @@ use App\Http\Controllers\Admin\Services\DashboardService;
 
 class DashboardController extends Controller
 {
-    //
-        public function index()
-        {
-            $data = DashboardService::getInformation();
+     public function index()
+    {
+        $data = DashboardService::getInformation();
             
-                    return view('admin.dashboard.index', compact(
-                        'data'
-                   ));      
-       } 
+         return view('admin.dashboard.index', compact('data' ));      
+    } 
 }

@@ -25,17 +25,18 @@ class AuthController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        $result = AuthService::getUserWhere($request);
-
-        if ($result){
-           
+        $user = AuthService::getUserWhere($request);
+        if ($user === false)
+            return redirect('login')->with('fail', config('shop.msg.fail'));
+        //admin login        if ($user->type == User::admin_type) {
+            Auth::login($user);
             return redirect(route('index.admin.dashboard'));
+    
+        //user login
+        if ($user->type == User::user_type) {
+            Auth::login($user);
+            return redirect(route('index'));
         }
-
-
-        return redirect('login')->with('fail', config('shop.msg.fail'));
-
-
     }
     public function logout()
     {
@@ -91,7 +92,6 @@ class AuthController extends Controller
             ->withCookie($tel);
 
     }
-
     public function setPassword(SetPasswordRequest $request)
     {
         AuthService::setPassword($request);
@@ -106,8 +106,8 @@ class AuthController extends Controller
      * @return string
      */
     private static function getOtpFromRequest(Request $request)
-   {
+    {
        return $request->first . $request->second . $request->third . $request->fourth;
-   }
+    }
 
 }

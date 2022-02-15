@@ -18,7 +18,7 @@ class CityController extends Controller
     public function store(storeCityRequest $request)
     {
         CityService::createCity($request);
-        return redirectr(route('index.city',)->with(['success'=>ms_succ()]);
+        return redirect(route('index.city'))->with(['success'=>msg_succ()]);
     }
 
 }

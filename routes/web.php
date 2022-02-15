@@ -288,7 +288,7 @@ Route::get('/', [DashboardController::class , 'index'])
          ->name('show.profile.user');
 
     //update
-    Route::post('/user/profile', [UserController::class, 'updateProfile'])         ->name('update.profile.user');    
+    Route::post('/user/profile', [UserController::class, 'updateProfile'])->name('update.profile.user');    
           /*
            |------------------------------
            | Register / Login

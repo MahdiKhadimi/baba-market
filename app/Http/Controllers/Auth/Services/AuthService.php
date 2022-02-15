@@ -68,13 +68,11 @@ class AuthService extends Controller
                     ->where('tel', $request->username)
                     ->get();
 
-        if ($user->count()) {
-
-            if (Hash::check($request->password, $user[0]->password)) {
-                Auth::loginUsingId($user[0]->id);
-                return true;
+        if (!empty($user)) {
+            if (Hash::check($request->password, $user->password)) {
+                  return $user;
             }
-        }
+         }
         return false;
     }
 

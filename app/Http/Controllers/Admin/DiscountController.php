@@ -13,6 +13,7 @@ class DiscountController extends Controller
     public function index()
     {
         $discounts = DiscountService::getWithPagination();
+
         return view('admin.discounts.index', compact('discounts'));
     }
 
@@ -29,7 +30,6 @@ class DiscountController extends Controller
         return view('admin.discounts.edit', compact('discount'));
     }
 
-    
     public function Update(UpdateDiscountRequest $request)
     {
         $discount_update_result =DiscountService::Update($request);

@@ -21,6 +21,13 @@ class CategoryService
         return Category::all();
     }
     
+
+    public static function getMainCategories()
+    {
+        return Category::where('parent_id', null)
+                       ->get();
+    }
+
     /**
      * store new data in db
      * @param Request $request
@@ -49,18 +56,11 @@ class CategoryService
                        ->paginate($perPage ?? config('shop.perPage'));
     }
 
-     
-    public static function getMainCategories()
-    {
-        return Category::where('parent_id', null)
-                       ->get();
-    }
     public static function getSubCatByCategory($category_id)
     {
         return Category::query()
                        ->find($category_id)->subcategories;
     }
-
 
      /**
      * check category is as a parent or not
@@ -70,8 +70,7 @@ class CategoryService
     {
         return $category->parent_id ===null ? false : true;
     }
-
-
+    
     /**
      * Update a Category
      * @param Request $request
@@ -86,6 +85,17 @@ class CategoryService
             'slug'=> $request->slug ,
             'parent_id' => $request->category == 0 ? null : $request->category
         ]);
+    }
+
+     /**
+     * get main category count
+     * @return int
+     */
+    public static function MainCategoryCount()
+    {
+        return Category::query()
+                       ->where(Category::c_parent_id, null)
+                       ->count();
     }
 
    /**

@@ -55,8 +55,20 @@ class DiscountService extends Controller
         return now()->isBetween($discount->started_at , $discount->end_at);
    }
  
+   /**
+     * find coupon by title
+     * @param $code
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model|object|null
+     */
+    public static function findByTitle($title)
+    {
+        return Discount::query()
+                       ->where('title', $title)
+                       ->first();
+    }
+    
    public static function Update(Request $request)
-       {
+   {
            try {
                DB::beginTransaction();
    
@@ -85,7 +97,7 @@ class DiscountService extends Controller
                DB::rollBack();
                return false;
            }
-}
+   }
 
 }
 	

@@ -16,6 +16,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = OrderService::getLatest();
+
         return view('admin.orders.index', compact('orders'));
     }
 
@@ -56,22 +57,18 @@ class OrderController extends Controller
     }
 
     public function ShowSearch()
-        {
+    {
             return view('admin.orders.search');
-        }
+    }
     
         public function Search(SearchOrderRequest  $request)
         {
-            $order = OrderService::Search($request->code);
-    
-    
-    
-    
+            $order = OrderService::Search($request->code);    
+            
             if(empty($order)){
                 return redirect()->back()->with('search_msg' , config('shop.msg.empty_search'));
             }
-    
+
             return  view('admin.orders.search', compact('order'));
         }
-
 }

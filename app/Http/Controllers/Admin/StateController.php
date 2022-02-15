@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\getStateRequest;
 use App\Http\Requests\storeStateRequest;
 use App\Http\Controllers\Admin\Services\CityService;
 use App\Http\Controllers\Admin\Services\StateService;
-
-
-
 class StateController extends Controller
 {
     /**
@@ -21,6 +19,22 @@ class StateController extends Controller
         $cities = CityService::getAll();
         return view('admin.cities.allstate' , compact('cities'));
     }
+
+     /**
+     * get states by city id
+     * @param getStateRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function getByCityId(getStateRequest $request)
+    {
+        $cities = CityService::getAll();
+
+        $states = StateService::getStateByCityId(CityService::getById
+        ($request->get_city_id));
+
+        return view('admin.cities.allstate', compact('states','cities'));
+    }
+
 
     /**
      * store new state to db

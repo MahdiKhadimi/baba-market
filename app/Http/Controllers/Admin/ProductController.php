@@ -19,7 +19,9 @@ class ProductController extends Controller
     public function index()
     {
         $products = ProductService::getWithPagination();
+
         $sizes = SizeService::getAll();
+        
         $colors = ColorService::getAll();
 
         return view('admin.products.index', compact('products'));
@@ -28,9 +30,13 @@ class ProductController extends Controller
     public function create()
     {
         $categories = CategoryService::getMainCategories();
+
         $brands = BrandService::getAll();
+        
         $sizes = SizeService::getAll();
+        
         $colors = ColorService::getAll();
+        
         return view('admin.products.create', compact('categories', 'brands', 'colors', 'sizes'));
     }
 
@@ -68,9 +74,15 @@ class ProductController extends Controller
       {
              //return $product;
              $sizes = SizeService::getAll();
+
              $categories = CategoryService::getAll();
+
+             $subCategories = CategoryService::getSubCatByCategory($product->category->parent->id);
+             
              $colors = ColorService::getAll();
+             
              $brands = BrandService::getAll();
+             
              return view('admin.products.edit',
                  compact(
                      'product',
@@ -79,16 +91,16 @@ class ProductController extends Controller
                      'colors',
                      'brands'
                  ));
-          }  
-          public function Update(UpdateProductRequest $request)
-              {
-                  $update_result = ProductService::Update($request);
+     } 
+     public function Update(UpdateProductRequest $request)
+     {
+        $update_result = ProductService::Update($request);
           
-                  if ($update_result) {
-                      return redirect()->back()->with('succ',config('shop.msg.update'));
-                  }
-                  return  redirect()->back()->with('fail' , config('shop.msg.fail_update'));
-              }
+        if ($update_result) {
+            return redirect()->back()->with('succ',config('shop.msg.update'));
+         }
+         
+        return  redirect()->back()->with('fail' , config('shop.msg.fail_update'));
+     }
               
-
 }
