@@ -15,8 +15,7 @@ class uploadService extends Controller
         return $imageName;
     }
 
-  
-      /**
+    /**
      * Delete a Image
      * @param $ImageName
      * @param $ImagePath
@@ -28,7 +27,8 @@ class uploadService extends Controller
         }
 
     }
-   /**
+
+    /**
      * Remove coolections of Images
      * @param \Illuminate\Database\Eloquent\Collection $productGalleries
      * @param $ImagePath
@@ -37,6 +37,8 @@ class uploadService extends Controller
     {
         foreach ($productGalleries as $productGallery) {
             uploadService::RemoveImage($productGallery->image, $ImagePath);
-         }
+        }
     }
+
+
 }

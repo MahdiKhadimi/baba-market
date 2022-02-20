@@ -40,6 +40,6 @@ class NotExistRule implements Rule
      */
     public function message()
     {
-        return 'The Number Is Registered / log In.';
+        return 'The Number Is Registered / logIn.';
     }
 }

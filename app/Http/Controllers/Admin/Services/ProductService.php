@@ -34,11 +34,14 @@ class ProductService extends Controller
 
             //save product to proudcts table
             $request['slug'] = SLUG($request->slug);
+
             $product = Product::create($request->toArray());
-            
+
             //save Gallery
             self::saveGalleriesImage($request, $product);
+
             //get attributes which is not null
+
 
             if ($request->has('attr_titles') && $request->has('attr_values')) {
 
@@ -147,7 +150,7 @@ class ProductService extends Controller
     public static function getWithPagination($perPage = null)
     {
         return Product::query()
-                      ->paginate($perPage ?? config('shop.perPage'));
+                      ->paginate($perPage ?? config('shop.perPage'))->withQueryString();
 
     }
 

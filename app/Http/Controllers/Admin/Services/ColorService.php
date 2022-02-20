@@ -2,25 +2,12 @@
 
 namespace App\Http\Controllers\Admin\Services;
 
-use App\Models\Color;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateColorRequest;
+use App\Models\Color;
 use Symfony\Component\HttpFoundation\Request;
 
 class ColorService extends Controller
 {
-
-
-    /**
-     * return colors 
-     *  @param null
-     * @return mixed
-     */
-    public function getAll()
-    {
-        return Color::get();
-    }
-
     /**
      * return data with pagination
      * @param null $perPage
@@ -31,7 +18,7 @@ class ColorService extends Controller
         return Color::paginate($perPage ?? config('shop.perPage'));
     }
 
-      /**
+    /**
      * store new data in db
      * @param Request $request
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
@@ -41,8 +28,17 @@ class ColorService extends Controller
         return Color::query()
                     ->create($request->toArray());
     }
-    
-     /**
+
+    /**
+     * get all color
+     * @return mixed
+     */
+    public static function getAll()
+    {
+        return Color::get();
+    }
+
+    /**
      * update color by id
      * @param $id
      * @param $name
@@ -57,5 +53,4 @@ class ColorService extends Controller
             'code' => $code
         ]);
     }
-
 }

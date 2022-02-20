@@ -28,9 +28,10 @@ class HomeController extends Controller
     public function getSingleProduct(Product $product, $slug)
     {
         $data = MenueService::getMenuAndSetCache();
-;
-         $comments = CommentService::getWithPagination($product);
+
+         $comments = User\Services\CommentService::getWithPagination($product);
         return view('singleproduct', compact('product' , 'data' ,'comments'));
     }
+
 
 }

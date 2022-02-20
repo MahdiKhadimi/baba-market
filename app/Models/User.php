@@ -13,7 +13,7 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
 
-
+    protected $table = 'users';
 
     const user_type = 'user';
     const admin_type = 'admin';

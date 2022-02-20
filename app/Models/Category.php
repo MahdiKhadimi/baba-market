@@ -23,6 +23,7 @@ class Category extends Model
     protected $fillable = [
         self::c_title,
         self::c_slug,
+        /*self::c_image,*/
         self::c_parent_id
     ];
 

@@ -8,15 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Brand extends Model
 {
     use HasFactory;
-    
-    public const id='id';
-    public const c_title='title';
-    public const c_slug='slug';
-    public const c_image='slug';
 
     protected $table = 'brands';
 
-  
+    const c_id = 'id';
+    const c_title = 'title';
+    const c_slug = 'slug';
+    const c_image = 'image';
+
     protected $fillable = [
         'title',
         'slug',

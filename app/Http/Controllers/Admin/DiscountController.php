@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Discount;
+use App\Http\Controllers\Admin\Services\DiscountService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\storeDiscountRequest;
 use App\Http\Requests\UpdateDiscountRequest;
-use App\Http\Controllers\Admin\Services\DiscountService;
+use App\Models\Discount;
 
 class DiscountController extends Controller
 {
     public function index()
     {
         $discounts = DiscountService::getWithPagination();
-
         return view('admin.discounts.index', compact('discounts'));
     }
 
@@ -24,6 +23,7 @@ class DiscountController extends Controller
         return redirect(route('index.discount'))->with('success', msg_succ());
 
     }
+
 
     public function ShowEdit(Discount $discount)
     {

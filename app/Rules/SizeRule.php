@@ -38,6 +38,6 @@ class SizeRule implements Rule
      */
     public function message()
     {
-        return 'The Size Selected is Not exist in database';
+        return 'The Size Selected is Not exist in Db.';
     }
 }

@@ -28,16 +28,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
+        Paginator::useBootstrap();
+
+        //assign observer
+        Category::observe(CategoryObserver::class);
+
         Blade::directive('money', function ($money) {
-                return "<?php echo number_format((int)$money); ?>";
+            return "<?php echo number_format((int)$money); ?>";
+        });
 
-});
 
-//assign observer
-Category::observe(CategoryObserver::class);
-Schema::defaultStringLength(191);
-
-Paginator::useBootstrap();
-}
-
+    }
 }

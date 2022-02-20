@@ -2,14 +2,6 @@
 
 namespace App\Observers;
 
-class CategoryObserver
-{
-    //
-}
-<?php
-
-namespace App\Observers;
-
 use App\Models\Category;
 use Illuminate\Support\Facades\Cache;
 

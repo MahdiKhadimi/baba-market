@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Product;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
-use App\Http\Requests\getSubCategoryRequest;
-use App\Http\Controllers\Admin\Services\SizeService;
 use App\Http\Controllers\Admin\Services\BrandService;
+use App\Http\Controllers\Admin\Services\CategoryService;
 use App\Http\Controllers\Admin\Services\ColorService;
 use App\Http\Controllers\Admin\Services\ProductService;
-use App\Http\Controllers\Admin\Services\CategoryService;
-
+use App\Http\Controllers\Admin\Services\SizeService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\getSubCategoryRequest;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
@@ -20,23 +19,15 @@ class ProductController extends Controller
     {
         $products = ProductService::getWithPagination();
 
-        $sizes = SizeService::getAll();
-        
-        $colors = ColorService::getAll();
-
         return view('admin.products.index', compact('products'));
     }
 
     public function create()
     {
         $categories = CategoryService::getMainCategories();
-
         $brands = BrandService::getAll();
-        
         $sizes = SizeService::getAll();
-        
         $colors = ColorService::getAll();
-        
         return view('admin.products.create', compact('categories', 'brands', 'colors', 'sizes'));
     }
 
@@ -48,12 +39,15 @@ class ProductController extends Controller
         $create_result = ProductService::create($request);
 
         if ($create_result) {
+
             return redirect(route('create.product'))->with('success', config('shop.msg.create'));
         }
 
         return redirect(route('create.product'))->with('fail', config('shop.msg.fail_create'));
 
+
     }
+
 
     /***
      * get sub Category by id
@@ -65,42 +59,45 @@ class ProductController extends Controller
 
         return response()->json($subcategories);
     }
-    public function getProductById(Product $product , $slug)    
+
+
+    public function getProductById(Product $product, $slug)
     {
+        return view('admin.products.product_details', compact('product'));
+    }
 
-            return view('admin.products.product_details'  , compact('product'));
-     }
-     public function ShowEdit(Product $product)
-      {
-             //return $product;
-             $sizes = SizeService::getAll();
+    public function ShowEdit(Product $product)
+    {
+        //return $product;
+        $sizes = SizeService::getAll();
+        $categories = CategoryService::getMainCategories();
 
-             $categories = CategoryService::getAll();
+        $subCategories = CategoryService::getSubCatByCategory($product->category->parent->id);
 
-             $subCategories = CategoryService::getSubCatByCategory($product->category->parent->id);
-             
-             $colors = ColorService::getAll();
-             
-             $brands = BrandService::getAll();
-             
-             return view('admin.products.edit',
-                 compact(
-                     'product',
-                     'categories',
-                              'sizes',
-                     'colors',
-                     'brands'
-                 ));
-     } 
-     public function Update(UpdateProductRequest $request)
-     {
+        $colors = ColorService::getAll();
+        $brands = BrandService::getAll();
+        return view('admin.products.edit',
+            compact(
+                'product',
+                'categories',
+                'sizes',
+                'colors',
+                'brands',
+                'subCategories'
+            ));
+    }
+
+    public function Update(UpdateProductRequest $request)
+    {
         $update_result = ProductService::Update($request);
-          
+
         if ($update_result) {
-            return redirect()->back()->with('succ',config('shop.msg.update'));
-         }
-         
-        return  redirect()->back()->with('fail' , config('shop.msg.fail_update'));
-     }
-              
+            return redirect()
+                ->back()
+                ->with('succ', config('shop.msg.update'));
+        }
+        return redirect()
+            ->back()
+            ->with('fail', config('shop.msg.fail_update'));
+    }
 }

@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\OrderItem;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
@@ -38,7 +37,7 @@ class Product extends Model
         'title',
         'slug',
         'price',
-        'on_sale',//discount
+        'on_sale',//تخفیف
         'started_at',
         'end_at',
         'image',
@@ -46,7 +45,7 @@ class Product extends Model
         'long_description',
         'note',
         'active',
-        'stock',
+        'stock',//تعداد موجودی
     ];
 
     /*
@@ -103,7 +102,7 @@ class Product extends Model
 
     public function order_items()
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->hasMany(OrderItem::clas);
     }
 
     public function comments()

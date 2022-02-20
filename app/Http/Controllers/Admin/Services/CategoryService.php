@@ -20,7 +20,6 @@ class CategoryService
     {
         return Category::all();
     }
-    
 
     public static function getMainCategories()
     {
@@ -43,6 +42,7 @@ class CategoryService
                            Category::c_slug      => SLUG($request->slug)
                        ]);
 
+
     }
 
     /**
@@ -62,15 +62,16 @@ class CategoryService
                        ->find($category_id)->subcategories;
     }
 
-     /**
+    /**
      * check category is as a parent or not
      * @param Category $category
      */
     public static function CheckIsParent(Category $category)
     {
-        return $category->parent_id ===null ? false : true;
+        return $category->parent_id === null ? false : true;
     }
-    
+
+
     /**
      * Update a Category
      * @param Request $request
@@ -78,16 +79,17 @@ class CategoryService
      */
     public static function Update(Request $request)
     {
-        $category = Category::query()->find($request->id);
+        $category = Category::query()
+                            ->find($request->id);
 
         return $category->update([
-            'title'=>$request->title ,
-            'slug'=> $request->slug ,
+            'title'     => $request->title,
+            'slug'      => $request->slug,
             'parent_id' => $request->category == 0 ? null : $request->category
         ]);
     }
 
-     /**
+    /**
      * get main category count
      * @return int
      */
@@ -98,14 +100,15 @@ class CategoryService
                        ->count();
     }
 
-   /**
+
+    /**
      * get menue
      * @return array
      */
     public static function getMenue()
     {
         $maincategories = CategoryService::getMainCategories();
-       
+
         foreach ($maincategories as $key => $cat) {
 
             $data['data'][$key] = ['title' => $cat->title, 'id' => $cat->id];
@@ -117,7 +120,8 @@ class CategoryService
             }
 
         }
+
         return $data;
 
     }
-}  
+}

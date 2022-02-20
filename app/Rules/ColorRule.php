@@ -40,6 +40,6 @@ class ColorRule implements Rule
      */
     public function message()
     {
-        return 'The Color id is not exist in database';
+        return 'The Color id is not exist in db';
     }
 }

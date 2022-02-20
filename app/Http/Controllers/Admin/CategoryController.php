@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
+use App\Http\Controllers\Admin\Services\CategoryService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-use App\Http\Controllers\Admin\Services\CategoryService;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
+
     public function index()
     {
 
@@ -17,8 +18,11 @@ class CategoryController extends Controller
         $cats_paginate = CategoryService::getWithPaginate();
         return view('admin.categories.index', compact('categories', 'cats_paginate'));
     }
+
+
     public function store(StoreCategoryRequest $request)
     {
+
         CategoryService::createNew($request);
         return redirect(route('index.category'))->with('success', config('shop.msg.create'));
 
@@ -43,16 +47,14 @@ class CategoryController extends Controller
     public function Update(UpdateCategoryRequest $request)
     {
         $category_update_result = CategoryService::Update($request);
-        if (!$category_update_result){
+        if (!$category_update_result)
             return redirect()
                 ->back()
                 ->with('fail', config('shop.msg.fail_update'));
-         } 
-            return redirect()
-            ->back()->with('success', config('shop.msg.update'));
-                    
-     } 
-     
 
+        return redirect()
+            ->back()
+            ->with('success', config('shop.msg.update'));
+    }
 
 }

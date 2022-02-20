@@ -10,7 +10,7 @@ class Size extends Model
     use HasFactory;
 
 
-  
+    protected $table = 'sizes';
     protected $fillable = ['title'];
 
 

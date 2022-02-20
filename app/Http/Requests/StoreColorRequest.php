@@ -27,7 +27,6 @@ class StoreColorRequest extends FormRequest
         return [
             'name' => 'required|string|min:3',
             'code' => ['required', 'regex:/#[a-zA-Z0-9]{6}/']
-                      
         ];
     }
 }

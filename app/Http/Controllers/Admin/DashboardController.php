@@ -1,16 +1,22 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+
 use App\Http\Controllers\Admin\Services\DashboardService;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-     public function index()
+    public function index()
     {
+
         $data = DashboardService::getInformation();
-            
-         return view('admin.dashboard.index', compact('data' ));      
-    } 
+
+        return view('admin.dashboard.index',
+            compact(
+                'data'
+            )
+        );
+
+    }
 }
