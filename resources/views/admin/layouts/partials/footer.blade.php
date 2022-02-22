@@ -1,5 +1,3 @@
-<!-- JAVASCRIPT -->
-@include('admin.layouts.partials.footer_script')
 <footer class="footer">
     <div class="container-fluid">
         <div class="row">

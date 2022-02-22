@@ -1,5 +1,25 @@
-@include('admin.layouts.partials.header')
-@section('title', 'login')
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>{{ config('app.name') }} | Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesdesign" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+
+    <!-- Bootstrap Css -->
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+
+</head>
 
 <body class="auth-body-bg">
     <div class="accountbg"></div>
@@ -8,8 +28,8 @@
 
             <div class="card-body">
                 <h3 class="text-center mt-0 mb-3">
-                    <a href="" class="logo"><img src="{{ asset('assets/images/logo-light.png') }}" height="24"
-                            alt="logo-img"></a>
+                    <a href="" class="logo"><img src="{{ asset('assets/images/logo-light.png') }}"
+                            height="24" alt="logo-img"></a>
                 </h3>
                 <h5 class="text-center mt-0 text-color"><b>Sign In</b></h5>
 
@@ -69,7 +89,7 @@
                                 <i class="mdi mdi-lock me-1"></i> Forgot your password?</a>
                         </div>
                         <div class="col-sm-5 text-right">
-                            <a href="auth-register.html" class="text-color">Create an account</a>
+                            <a href="{{ route('register') }}" class="text-color">Create an account</a>
                         </div>
                     </div>
                 </form>
@@ -80,7 +100,12 @@
 
 
     <!-- JAVASCRIPT -->
-    @include('admin\layouts\partials\footer_script')
+    <script src="{{ asset('assets/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/metismenu/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
 
 </body>
 
