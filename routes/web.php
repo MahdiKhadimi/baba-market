@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
  | Register / Login
  |------------------------------
  */
+
 //show register view
 Route::view('/register', 'auth.register')
      ->name('show.register');
@@ -99,6 +100,7 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
     Route::get("/basket/dec/{basket}", [UserController::class, 'decCount'])
          ->name('dec.basket.user');
 
+
     /*
      |------------------------------
      | Baskets
@@ -108,12 +110,13 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
     Route::get('/basket/del/{basket}', [UserController::class, 'delBasket'])
          ->name('del.basket.user');
 
+
     //show all basket
-    Route::any('/basket/show/all', [UserController::class, 'showAllBasket'])
+    Route::match(['get', 'post'], '/basket/show/all', [UserController::class, 'showAllBasket'])
          ->name('all.basket.user');
 
     //show address
-    Route::any('/basket/show/address', [UserController::class, 'showAddress'])
+    Route::match(['get', 'post'], '/basket/show/address', [UserController::class, 'showAddress'])
          ->name('address.basket.user');
 
     Route::post('/basket/add/address', [UserController::class, 'AddAddress'])
@@ -121,6 +124,7 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
 
     Route::post('/basket/get/state', [UserController::class, 'GetStateByCityId'])
          ->name('state.basket.user');
+
 
     //history
     Route::get('/basket/history', [UserController::class, 'userBuyHistory'])
@@ -159,7 +163,10 @@ Route::group(['prefix', 'user', 'middleware' => ['userauth']], function () {
      */
     Route::post('/add/comment/{product}', [UserController::class, 'addComment'])
          ->name('add.comment.user');
+
+
 });
+
 
 /*
  |------------------------------
@@ -198,12 +205,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
     //search
     Route::post('/order/search', [OrderController::class, 'Search'])
          ->name('search.order');
-    
-     /*
+    /*
      |------------------------------
      | category
      |------------------------------
      */
+
     //show all
     Route::get('/category', [CategoryController::class, 'index'])
          ->name('index.category');
@@ -399,7 +406,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth', 'adminauth'], fun
  |------------------------------
  | home route
  |------------------------------
- |
+ |e
  |
  |
  */
@@ -429,10 +436,14 @@ Route::get('/cart/{id}/{title}/{cnt}', function ($id, $title, $cnt) {
 
     $cart = serialize($cart);
 
+
     $a = cookie('cart', $cart, 20);
 
     return redirect('/t')->withCookie($a);
-    
+    //exist
+    //++
+    //not exist
+    //create
 });
 
 Route::view('t', 'testa');
@@ -450,7 +461,20 @@ Route::get('/ss', function () {
         ->withoutCookie('a')
         ->with('hii', 'by');
 
+
 });
+
+/*Route::get('/hi', function () {
+    $des = unserialize(request()->cookie('cart'));
+    echo "<pre>";
+    foreach ($des as $d) {
+        if ($d['id'] == 2) {
+            dd('yess');
+        }
+    }
+    echo "</pre>";
+    dd('get cookie',);
+});*/
 
 Route::get('/l', function () {
 
