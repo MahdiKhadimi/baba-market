@@ -12,10 +12,10 @@ Baba Market
 
 -   [Introduction](#intro)
 -   [Dynamic Menue](#Dynamic-menu):oil_drum:
--   [ Authentication](#Authentication) :man_technologist:
--   [ Admin Panel Features ](#Admin-Panel-Features)
+-   [Authentication](#Authentication) :man_technologist:
+-   [Admin Panel Features](#Admin-Panel-Features)
 -   [User Panel Features](#User-Panel-Features)
--   [ Helper Functions and Config Files](#Helper-Functions-and-Config-Files)
+-   [Helper Functions and Config Files](#Helper-Functions-and-Config-Files)
 </details>
 
 <hr>
@@ -40,7 +40,6 @@ It is an eCommerce website that has created by Laravel. It has a dashboard for a
 
 For authentication users should register their phone number. The phone number must be uniqe, When user enter a phone number. For verifying user phone number application sends a verify number message to the user phone number. User should enter that message for less than 120 sec. If user lose that time, she/he can ask again for verify message.Right now hasn't used from any Message Service, but All these process are semulated by application.
 
-<details>
 
 <hr>
 
