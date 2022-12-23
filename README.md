@@ -13,7 +13,7 @@ Baba Market
 -   [Introduction](#intro)
 -   [Dynamic Menue](#Dynamic-menu):oil_drum:
 -   [ Authentication](#Authentication) :man_technologist:
--   [ Admin Panel Features ](#Admin Panel Features) :stars:
+-   [ Admin Panel Features ](#Admin-Panel-Features) :stars:
 -   [User Panel Features](#User-Panel-Features) :technologist:
 -   [ Helper Functions and Config Files](#Helper-Functions-and-Config-Files)
 </details>
