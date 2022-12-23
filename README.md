@@ -13,7 +13,7 @@ Baba Market
 -   [Introduction](#intro)
 -   [Dynamic Menue](#Dynamic-menu):oil_drum:
 -   [ Authentication](#Authentication) :man_technologist:
--   [ Admin Panel Features ](#Admin-Panel-Features) :stars:
+-   [ Admin Panel Features ](#Admin Panel Features) :stars:
 -   [User Panel Features](#User-Panel-Features) :technologist:
 -   [ Helper Functions and Config Files](#Helper-Functions-and-Config-Files)
 </details>
@@ -21,7 +21,7 @@ Baba Market
 <hr>
 <details id="intro"> 
 <summary><h2>Introduction</h2></summary>
-It is an eCommerce website that has created by Laravel 9. It has a dashboard for admins to manage (CRUD) products and all product dependencies. Users can register at this app, buys products and order products.  
+It is an eCommerce website that has created by Laravel. It has a dashboard for admins to manage (CRUD) products and all product dependencies. Users can register at this app, buys products and order products.  
 </details>
 
 <hr>
